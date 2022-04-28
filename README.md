@@ -1,1 +1,3 @@
-# Grid
+# InstaGrid
+
+- P4 OPENCLASSROOMS PROJECT -
