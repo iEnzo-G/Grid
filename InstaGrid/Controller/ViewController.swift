@@ -56,15 +56,12 @@ class ViewController: UIViewController {
     
     
     @IBAction func addImageTopLeft() {
-        addTopLeft.isSelected = true
-        addTopLeft.setImage(UIImage(named: "IMG_2463"), for: .selected)
-        
     }
-//    @IBAction func addImageToRight() {
-//    }
-//    @IBAction func addImageBottomLeft() {
-//    }
-//    @IBAction func addImageBottomRight() {
-//    }
+    @IBAction func addImageToRight() {
+    }
+    @IBAction func addImageBottomLeft() {
+    }
+    @IBAction func addImageBottomRight() {
+    }
 }
 
