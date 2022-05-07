@@ -62,18 +62,10 @@
 			children = (
 				54AAAB812816A2980084F2E4 /* Info.plist */,
 				54AAAB8A2816B3720084F2E4 /* Supporting Files */,
-				54AAAB872816B34B0084F2E4 /* Model */,
 				54AAAB882816B3520084F2E4 /* View */,
 				54AAAB892816B3590084F2E4 /* Controller */,
 			);
 			path = InstaGrid;
-			sourceTree = "<group>";
-		};
-		54AAAB872816B34B0084F2E4 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		54AAAB882816B3520084F2E4 /* View */ = {

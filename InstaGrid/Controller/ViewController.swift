@@ -8,60 +8,102 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    // MARK: - Outlets
+    
+    @IBOutlet weak var topRightGridButton: UIButton!
+    @IBOutlet weak var bottomRightGridButton: UIButton!
+    @IBOutlet weak var photoMontageView: UIView!
+    @IBOutlet var layoutButtons: [UIButton]!
+    
+    // MARK: - Properties
+    
+    var imageButton: UIButton!
+    
+    // MARK: - View life cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        didTapMiddleLayout()
+        
+        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(sharePhotoMontageView))
+        photoMontageView.addGestureRecognizer(panGestureRecognizer)
+    }
+    
+    // MARK: - Actions
+    
+    @IBAction func layoutButtonTapped(_ sender: UIButton) {
+        layoutButtons.forEach { $0.isSelected = false }
+        sender.isSelected = true
+        
+        switch sender.tag {
+        case 0:
+            topRightGridButton.isHidden = true
+            bottomRightGridButton.isHidden = false
+        case 1:
+            topRightGridButton.isHidden = false
+            bottomRightGridButton.isHidden = true
+        case 2:
+            topRightGridButton.isHidden = false
+            bottomRightGridButton.isHidden = false
+        default: break
+        }
+    }
+    @IBAction func plusButtonTapped(_ sender: UIButton){
+        imageButton = sender
+        showImagePickerController()
+        
+    }
+    
+    @objc func sharePhotoMontageView(_ sender: UIPanGestureRecognizer) {
+        transformPhotoMontageView(gesture: sender)
+        switch sender.state {
+        case .began, .changed:
+            let _ = ""
+//            UIActivityViewController
+        case .cancelled, .ended:
+            photoMontageView.transform = .identity
+        default: break
+        }
+    }
+    
+    private func transformPhotoMontageView(gesture: UIPanGestureRecognizer) {
+        let translation = gesture.translation(in: photoMontageView)
+        if UIDevice.current.orientation.isPortrait == true {
+            let translationTransform = CGAffineTransform(translationX: 0, y: translation.y)
+            photoMontageView.transform = translationTransform
+        }
+        else {
+            let translationTransform = CGAffineTransform(translationX: translation.x, y: 0)
+            photoMontageView.transform = translationTransform
+        }
+    }
+    
+    func testSomeUI() {
+        
+    }
+}
 
+// MARK: - Extensions
+
+extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    private func showImagePickerController() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.allowsEditing = true
+        imagePickerController.sourceType = .photoLibrary
+        present(imagePickerController, animated: true, completion: nil)
     }
-    
-    @IBOutlet weak var addTopLeft: UIButton!
-    @IBOutlet weak var addTopRight: UIButton!
-    @IBOutlet weak var addBottomRight: UIButton!
-    @IBOutlet weak var addBottomLeft: UIButton!
-    
-    @IBOutlet weak var photoMontageView: UIView!
-    @IBOutlet weak var middleLayout: UIButton!
-    @IBOutlet weak var leftLayout: UIButton!
-    @IBOutlet weak var rightLayout: UIButton!
-    
-    
-    @IBAction func didTapMiddleLayout() {
-        middleLayout.isSelected = true
-        leftLayout.isSelected = false
-        rightLayout.isSelected = false
-        middleLayout.setImage(UIImage(named: "Selected"), for: .selected)
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let originalImage = info[.originalImage] as? UIImage {
+            imageButton.setImage(originalImage, for: .normal)
+            imageButton.subviews.first?.contentMode = .scaleAspectFill
+        }
+        else if let editedImage = info[.editedImage] as? UIImage {
+            imageButton.setImage(editedImage, for: .normal)
+            imageButton.subviews.first?.contentMode = .scaleAspectFill
+        }
+        dismiss(animated: true, completion: nil)
         
-        addTopRight.isHidden = false
-        addBottomRight.isHidden = true
-    }
-    @IBAction func didTapLeftLayout() {
-        middleLayout.isSelected = false
-        leftLayout.isSelected = true
-        rightLayout.isSelected = false
-        leftLayout.setImage(UIImage(named: "Selected"), for: .selected)
-        
-        addTopRight.isHidden = true
-        addBottomRight.isHidden = false
-    }
-    @IBAction func didTapRightLayout() {
-        middleLayout.isSelected = false
-        leftLayout.isSelected = false
-        rightLayout.isSelected = true
-        rightLayout.setImage(UIImage(named: "Selected"), for: .selected)
-        
-        addTopRight.isHidden = false
-        addBottomRight.isHidden = false
-    }
-    
-    
-    @IBAction func addImageTopLeft() {
-    }
-    @IBAction func addImageToRight() {
-    }
-    @IBAction func addImageBottomLeft() {
-    }
-    @IBAction func addImageBottomRight() {
     }
 }
 

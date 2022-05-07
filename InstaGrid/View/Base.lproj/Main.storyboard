@@ -21,7 +21,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Instagrid" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6QW-X1-fOX">
-                                <rect key="frame" x="142" y="67" width="130" height="35"/>
+                                <rect key="frame" x="142" y="67" width="130" height="39"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="130" id="3OH-4w-DiS"/>
                                 </constraints>
@@ -46,7 +46,7 @@
                                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="addImageTopLeft" destination="BYZ-38-t0r" eventType="touchUpInside" id="cWo-eq-b0V"/>
+                                                            <action selector="plusButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="itq-jB-qKb"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Onb-UZ-krF" userLabel="addTopRight">
@@ -55,7 +55,7 @@
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" image="Combined Shape"/>
                                                         <connections>
-                                                            <action selector="addImageToRight" destination="BYZ-38-t0r" eventType="touchUpInside" id="Hhp-dc-hSS"/>
+                                                            <action selector="plusButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NTA-iH-I46"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -64,21 +64,21 @@
                                                 <rect key="frame" x="0.0" y="159.5" width="304" height="144.5"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BEe-xe-03M" userLabel="addBottomLeft">
-                                                        <rect key="frame" x="0.0" y="0.0" width="144.5" height="144.5"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="304" height="144.5"/>
                                                         <color key="backgroundColor" red="0.94117665289999997" green="0.94117647410000005" blue="0.94117653369999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" image="Combined Shape"/>
                                                         <connections>
-                                                            <action selector="addImageBottomLeft" destination="BYZ-38-t0r" eventType="touchUpInside" id="cbU-Dw-o0O"/>
+                                                            <action selector="plusButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8EY-TJ-vjG"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kMN-nO-uEc" userLabel="addBottomRight">
-                                                        <rect key="frame" x="159.5" y="0.0" width="144.5" height="144.5"/>
+                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kMN-nO-uEc" userLabel="addBottomRight">
+                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="144.5"/>
                                                         <color key="backgroundColor" red="0.94117665289999997" green="0.94117647410000005" blue="0.94117653369999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" image="Combined Shape"/>
                                                         <connections>
-                                                            <action selector="addImageBottomRight" destination="BYZ-38-t0r" eventType="touchUpInside" id="mtd-wU-Wmw"/>
+                                                            <action selector="plusButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vol-c0-PhL"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -96,14 +96,14 @@
                                 </constraints>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="rdO-zd-xXO" userLabel="Label Swipe">
-                                <rect key="frame" x="102" y="216" width="210" height="55"/>
+                                <rect key="frame" x="127" y="217.5" width="160.5" height="53.5"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="Arrow Up" translatesAutoresizingMaskIntoConstraints="NO" id="JYY-cV-P7T">
-                                        <rect key="frame" x="98.5" y="0.0" width="13.5" height="9.5"/>
+                                        <rect key="frame" x="73.5" y="0.0" width="13.5" height="9.5"/>
                                         <variation key="heightClass=compact" image="Arrow Left"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dgx-Hj-HrO">
-                                        <rect key="frame" x="0.0" y="24.5" width="210" height="30.5"/>
+                                        <rect key="frame" x="0.0" y="24.5" width="160.5" height="29"/>
                                         <attributedString key="attributedText">
                                             <fragment content="Swipe up to share">
                                                 <attributes>
@@ -133,24 +133,27 @@
                                         <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" backgroundImage="Layout 1"/>
+                                        <state key="selected" image="Selected"/>
                                         <connections>
-                                            <action selector="didTapLeftLayout" destination="BYZ-38-t0r" eventType="touchUpInside" id="dTx-oj-eHL"/>
+                                            <action selector="layoutButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UFS-Nz-BI8"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1N5-Zr-0im">
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1N5-Zr-0im">
                                         <rect key="frame" x="99" y="0.0" width="80" height="80"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" backgroundImage="Layout 2"/>
+                                        <state key="selected" image="Selected"/>
                                         <connections>
-                                            <action selector="didTapMiddleLayout" destination="BYZ-38-t0r" eventType="touchUpInside" id="Yll-wb-W54"/>
+                                            <action selector="layoutButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eSH-JZ-Izw"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mpp-2m-xam">
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mpp-2m-xam">
                                         <rect key="frame" x="198" y="0.0" width="80" height="80"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" backgroundImage="Layout 3"/>
+                                        <state key="selected" image="Selected"/>
                                         <connections>
-                                            <action selector="didTapRightLayout" destination="BYZ-38-t0r" eventType="touchUpInside" id="v5t-tY-5Lz"/>
+                                            <action selector="layoutButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VLE-5O-9Ta"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -210,14 +213,12 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="addBottomLeft" destination="BEe-xe-03M" id="44f-7H-1DT"/>
-                        <outlet property="addBottomRight" destination="kMN-nO-uEc" id="AQv-W8-cgf"/>
-                        <outlet property="addTopLeft" destination="jsM-W3-H7m" id="b6m-6p-3sn"/>
-                        <outlet property="addTopRight" destination="Onb-UZ-krF" id="0sF-yt-5Lp"/>
-                        <outlet property="leftLayout" destination="Cvj-jO-Ett" id="K66-nP-pcQ"/>
-                        <outlet property="middleLayout" destination="1N5-Zr-0im" id="fsr-tC-aRi"/>
+                        <outlet property="bottomRightGridButton" destination="kMN-nO-uEc" id="MB0-OI-9f6"/>
                         <outlet property="photoMontageView" destination="Kfm-KX-WTQ" id="drJ-OK-NhP"/>
-                        <outlet property="rightLayout" destination="mpp-2m-xam" id="lhJ-j7-C3q"/>
+                        <outlet property="topRightGridButton" destination="Onb-UZ-krF" id="JhI-DC-Yuv"/>
+                        <outletCollection property="layoutButtons" destination="Cvj-jO-Ett" collectionClass="NSMutableArray" id="Bdt-ge-VTx"/>
+                        <outletCollection property="layoutButtons" destination="1N5-Zr-0im" collectionClass="NSMutableArray" id="N5N-hD-hIN"/>
+                        <outletCollection property="layoutButtons" destination="mpp-2m-xam" collectionClass="NSMutableArray" id="lK9-gy-2F0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -232,5 +233,6 @@
         <image name="Layout 1" width="80" height="80"/>
         <image name="Layout 2" width="80" height="80"/>
         <image name="Layout 3" width="80" height="80"/>
+        <image name="Selected" width="80" height="80"/>
     </resources>
 </document>
