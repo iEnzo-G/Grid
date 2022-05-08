@@ -24,7 +24,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(sharePhotoMontageView))
         photoMontageView.addGestureRecognizer(panGestureRecognizer)
     }
@@ -48,19 +47,21 @@ class ViewController: UIViewController {
         default: break
         }
     }
+    
     @IBAction func plusButtonTapped(_ sender: UIButton){
         imageButton = sender
         showImagePickerController()
-        
     }
     
     @objc func sharePhotoMontageView(_ sender: UIPanGestureRecognizer) {
         transformPhotoMontageView(gesture: sender)
         switch sender.state {
-        case .began, .changed:
+        case .changed:
             let _ = ""
-//            UIActivityViewController
+//            let sharePhotoMontage = UIActivityViewController(activityItems: [photoMontageView!], applicationActivities: nil)
+//            present(sharePhotoMontage, animated: true, completion: nil)
         case .cancelled, .ended:
+            swipeView()
             photoMontageView.transform = .identity
         default: break
         }
@@ -68,6 +69,7 @@ class ViewController: UIViewController {
     
     private func transformPhotoMontageView(gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: photoMontageView)
+        if translation.x < 0 || translation.y < 0 {
         if UIDevice.current.orientation.isPortrait == true {
             let translationTransform = CGAffineTransform(translationX: 0, y: translation.y)
             photoMontageView.transform = translationTransform
@@ -77,9 +79,19 @@ class ViewController: UIViewController {
             photoMontageView.transform = translationTransform
         }
     }
+    }
     
-    func testSomeUI() {
-        
+    func swipeView() {
+        let screenWidth = UIScreen.main.bounds.width
+        let screenHeight = UIScreen.main.bounds.height
+        var translationTransform: CGAffineTransform
+        if UIDevice.current.orientation.isPortrait == true {
+            translationTransform = CGAffineTransform(translationX: 0, y: -screenHeight)
+        }
+        else {
+            translationTransform = CGAffineTransform(translationX: -screenWidth, y: 0)
+        }
+        UIView.animate(withDuration: 0.3, animations: {self.photoMontageView.transform = translationTransform }, completion: nil)
     }
 }
 
@@ -93,6 +105,7 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
         imagePickerController.sourceType = .photoLibrary
         present(imagePickerController, animated: true, completion: nil)
     }
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let originalImage = info[.originalImage] as? UIImage {
             imageButton.setImage(originalImage, for: .normal)
@@ -103,7 +116,6 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
             imageButton.subviews.first?.contentMode = .scaleAspectFill
         }
         dismiss(animated: true, completion: nil)
-        
     }
 }
 
