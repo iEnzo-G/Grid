@@ -55,30 +55,33 @@ class ViewController: UIViewController {
     
     @objc func sharePhotoMontageView(_ sender: UIPanGestureRecognizer) {
         transformPhotoMontageView(gesture: sender)
+//        guard let image = UIImage(named: "Selected") else { return }
+//        let sharePhotoMontage = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         switch sender.state {
         case .changed:
             let _ = ""
-//            let sharePhotoMontage = UIActivityViewController(activityItems: [photoMontageView!], applicationActivities: nil)
 //            present(sharePhotoMontage, animated: true, completion: nil)
         case .cancelled, .ended:
             swipeView()
-            photoMontageView.transform = .identity
+//            if sharePhotoMontage.userActivity?.activityType == nil { photoMontageView.transform = .identity }
         default: break
         }
     }
     
     private func transformPhotoMontageView(gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: photoMontageView)
-        if translation.x < 0 || translation.y < 0 {
         if UIDevice.current.orientation.isPortrait == true {
+            if translation.y <= 0 {
             let translationTransform = CGAffineTransform(translationX: 0, y: translation.y)
             photoMontageView.transform = translationTransform
+            }
         }
         else {
+            if translation.x <= 0 {
             let translationTransform = CGAffineTransform(translationX: translation.x, y: 0)
             photoMontageView.transform = translationTransform
+            }
         }
-    }
     }
     
     func swipeView() {
@@ -93,11 +96,16 @@ class ViewController: UIViewController {
         }
         UIView.animate(withDuration: 0.3, animations: {self.photoMontageView.transform = translationTransform }, completion: nil)
     }
+    
+    @IBAction func dotIdentityTapped(_ sender: UIButton) { //ONLY FOR TEST
+        photoMontageView.transform = .identity
+    }
 }
 
 // MARK: - Extensions
 
 extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
     private func showImagePickerController() {
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
