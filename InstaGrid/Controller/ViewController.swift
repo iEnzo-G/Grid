@@ -18,39 +18,32 @@ class ViewController: UIViewController {
     
     // MARK: - Properties
     
-    var selectedPlusButton: UIButton?
-    private var windowInterfaceOrientation: UIInterfaceOrientation? {
-        return UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
+    private var swipeGesture: UISwipeGestureRecognizer?
+    private var selectedPlusButton: UIButton?
+    private var deviceOrientation: UIDeviceOrientation {
+        return UIDevice.current.orientation
     }
-    var direction : UISwipeGestureRecognizer.Direction?
+    
     
     // MARK: - View life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(sharePhotoMontageView))
-        photoMontageView.addGestureRecognizer(swipeGestureRecognizer)
+        swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(sharePhotoMontageView))
+        guard let swipeGesture = swipeGesture else { return }
+        photoMontageView.addGestureRecognizer(swipeGesture)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        didChangeOrientation()
     }
     
     override func willTransition(to newCollection: UITraitCollection, with coordinator: UIViewControllerTransitionCoordinator) {
-            super.willTransition(to: newCollection, with: coordinator)
-            
-            coordinator.animate(alongsideTransition: { (context) in
-                guard let windowInterfaceOrientation = self.windowInterfaceOrientation else { return }
-                
-                if windowInterfaceOrientation.isLandscape {
-                    print("Interface orientation is now = Landscape")
-                    self.direction = .left
-                    // activate landscape changes
-                } else {
-                    print("Interface orientation is now = Portrait")
-                    self.direction = .up
-                    // activate portrait changes
-                }
-            })
-        }
-        
-
+        super.willTransition(to: newCollection, with: coordinator)
+        didChangeOrientation()
+    }
+    
+    
     // MARK: - Actions
     
     
@@ -78,9 +71,25 @@ class ViewController: UIViewController {
     }
     
     @objc func sharePhotoMontageView(_ sender: UISwipeGestureRecognizer) {
-        sender.direction = direction ?? .up
-        print(sender.direction.rawValue == 4 ? "Up" : "Left") /* 1 = | 2 = Left | 4 = Up | 8 = Down */
-//        swipeView()
+        swipeView(didShare: true)
+        shareController()
+    }
+    
+    private func shareController() {
+        let share = UIActivityViewController(activityItems: [imageRendering()], applicationActivities: nil)
+        share.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
+            if !completed {
+                self.swipeView(didShare: false)
+                self.photoMontageView.transform = .identity
+            }
+            self.swipeView(didShare: false)
+            self.photoMontageView.transform = .identity
+        }
+        present(share, animated: true)
+    }
+    
+    private func didChangeOrientation() {
+        swipeGesture?.direction = deviceOrientation.isPortrait ? .up  : .left
     }
     
     private func showImagePickerController() {
@@ -91,17 +100,24 @@ class ViewController: UIViewController {
         present(imagePickerController, animated: true)
     }
     
-    func swipeView() {
+    private func swipeView(didShare: Bool) {
         let screenWidth = UIScreen.main.bounds.width
         let screenHeight = UIScreen.main.bounds.height
+        var translationX: CGFloat
+        var translationY: CGFloat
+        translationX = didShare ? -screenWidth : 0
+        translationY = didShare ? -screenHeight : 0
         var translationTransform: CGAffineTransform
-        if UIDevice.current.orientation.isPortrait == true {
-            translationTransform = CGAffineTransform(translationX: 0, y: -screenHeight)
+        translationTransform = swipeGesture?.direction == .up ? CGAffineTransform(translationX: 0, y: translationY) : CGAffineTransform(translationX: translationX, y: 0)
+        UIView.animate(withDuration: 0.3, animations: { self.photoMontageView.transform = translationTransform })
+    }
+    
+    private func imageRendering() -> UIImage {
+        let renderer = UIGraphicsImageRenderer(size: photoMontageView.bounds.size)
+        let image = renderer.image { ctx in
+            photoMontageView.drawHierarchy(in: photoMontageView.bounds, afterScreenUpdates: true)
         }
-        else {
-            translationTransform = CGAffineTransform(translationX: -screenWidth, y: 0)
-        }
-        UIView.animate(withDuration: 0.3, animations: {self.photoMontageView.transform = translationTransform })
+        return image
     }
 }
 
